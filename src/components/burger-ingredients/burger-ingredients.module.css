@@ -1,0 +1,42 @@
+.section {
+  max-width: 600px;
+}
+
+.tab {
+  display: flex;
+}
+
+.img {
+  width: 240px;
+  height: 120px;
+}
+
+.ingredientContainer {
+  height: 650px;
+  overflow-y: scroll;
+}
+
+.elementsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px 24px;
+}
+
+.elementContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 272px;
+  position: relative;
+  cursor: pointer;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.elementName {
+  text-align: center;
+}
