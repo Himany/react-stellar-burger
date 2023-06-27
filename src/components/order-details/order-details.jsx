@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import styles from "./order-details.module.css";
 import imgDone from "../../images/graphics.svg";
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -16,6 +17,10 @@ function OrderDetails(props) {
       <p className={`text text_type_main-default text_color_inactive ${styles.orderSubText} mt-2`}>Дождитесь готовности на орбитальной станции</p>
     </>
   );
+};
+
+OrderDetails.propTypes = {
+  closeAction:PropTypes.func.isRequired
 };
 
 export default OrderDetails;

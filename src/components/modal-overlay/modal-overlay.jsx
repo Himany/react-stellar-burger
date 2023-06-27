@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import styles from "./modal-overlay.module.css";
 import * as ReactDOM from 'react-dom';
 
@@ -7,12 +8,12 @@ const modalRoot = document.getElementById("react-modals");
 function ModalOverlay(props) {
   function handleEscapeClick(event) {
     if (event.key === 'Escape') {
-      props.closeAction();
+      props.closeAction(false);
     }
   };
   function handleOverlayClick(event) {
     if (event.target === event.currentTarget) {
-      props.closeAction();
+      props.closeAction(false);
     }
   };
   React.useEffect(() => {
@@ -27,6 +28,10 @@ function ModalOverlay(props) {
     ), 
     modalRoot
   );
+};
+
+ModalOverlay.propTypes = {
+  closeAction:PropTypes.func.isRequired
 };
 
 export default ModalOverlay;

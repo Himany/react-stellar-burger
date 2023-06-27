@@ -1,35 +1,22 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import styles from "./burger-ingredients.module.css";
-import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientPropType } from "../../utils/prop-types.js"
-
-function Ingredient(props) {
-
-  const { data, count, view } = props;
-
-  return(
-    <div className={`${styles.elementContainer} mt-6`} onClick={() => {view(data)}}>
-      <img className={styles.img} src={data.image} alt={data.name} />
-      <div className={`${styles.priceContainer} mt-1`}>
-        <p className="text text_type_digits-default">{data.price}</p><CurrencyIcon type="primary" />
-      </div>
-      <p className={`text text_type_main-default ${styles.elementName} mt-1`}>{data.name}</p>
-      { (count > 0) && 
-        <Counter count={count} size="default" />
-      }
-    </div>
-  );
-}
-
-Ingredient.propTypes = {
-  data:ingredientPropType.isRequired,
-  count:PropTypes.number.isRequired,
-  view:PropTypes.func.isRequired
-};
+import Ingredient from "../ingredient/ingredient";
+import { ingredientPropType } from "../../utils/prop-types.js";
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import ModalOverlay from "../modal-overlay/modal-overlay.jsx";
+import Modal from "../modal/modal.jsx";
+import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
 
 function BurgerIngredients(props) {
+  const [isShowIngredient, setIsShowIngredient] = React.useState(false);
+  const [ingredientData, setIngredientData] = React.useState({});
   const [current, setCurrent] = React.useState('bun');
+
+  function ingredientView(data) {
+    setIngredientData(data);
+    setIsShowIngredient(true);
+  }
 
   const bunRef = React.useRef(null);
   const sauceRef = React.useRef(null);
@@ -88,7 +75,7 @@ function BurgerIngredients(props) {
           {
             bun.map((item) => {
               return(
-                <Ingredient data={item} count={0} key={item._id} view={props.ingredientView} />
+                <Ingredient data={item} count={0} key={item._id} view={ingredientView} />
               );
             })
           }
@@ -98,7 +85,7 @@ function BurgerIngredients(props) {
           {
             sauce.map((item) => {
               return(
-                <Ingredient data={item} count={0} key={item._id} view={props.ingredientView} />
+                <Ingredient data={item} count={0} key={item._id} view={ingredientView} />
               );
             })
           }
@@ -108,14 +95,25 @@ function BurgerIngredients(props) {
           {
             main.map((item) => {
               return(
-                <Ingredient data={item} count={0} key={item._id} view={props.ingredientView} />
+                <Ingredient data={item} count={0} key={item._id} view={ingredientView}/>
               );
             })
           }
         </div>
       </div>
+      { isShowIngredient && 
+        <ModalOverlay closeAction={setIsShowIngredient}>
+          <Modal extraClasses="pb-15 pt-10">
+            <IngredientDetails data={ingredientData} closeAction={setIsShowIngredient} />
+          </Modal>
+        </ModalOverlay>
+      }
     </section>
   );
 }
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(ingredientPropType).isRequired
+};
 
 export default BurgerIngredients;

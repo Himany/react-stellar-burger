@@ -1,6 +1,5 @@
 .header {
-  margin-top: 40px;
-  width: min(1920px,96vw);
+  width: 100%;
 }
 
 .nav {
@@ -28,7 +27,10 @@
 }
 
 .link {
+  margin: 0;
+  padding: 0;
   color: #8585AD;
+  text-decoration: none;
 }
 
 .logo {
