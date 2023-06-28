@@ -1,0 +1,13 @@
+.li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.link {
+  margin: 0;
+  padding: 0;
+  color: #8585AD;
+  text-decoration: none;
+}

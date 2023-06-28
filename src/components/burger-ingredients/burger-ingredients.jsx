@@ -4,7 +4,6 @@ import styles from "./burger-ingredients.module.css";
 import Ingredient from "../ingredient/ingredient";
 import { ingredientPropType } from "../../utils/prop-types.js";
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import ModalOverlay from "../modal-overlay/modal-overlay.jsx";
 import Modal from "../modal/modal.jsx";
 import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
 
@@ -39,27 +38,24 @@ function BurgerIngredients(props) {
     }
   });
 
-  const executeScroll = React.useCallback(
-    (value) => {
-      const scrollAnim = {
-        block: 'start',
-        behavior: 'smooth',
-      };
+  const executeScroll = (value) => {
+    const scrollAnim = {
+      block: 'start',
+      behavior: 'smooth',
+    };
 
-      switch (value) {
-        case 'bun':
-          bunRef.current.scrollIntoView(scrollAnim);
-          break;
-        case 'sauce':
-          sauceRef.current.scrollIntoView(scrollAnim);
-          break;
-        default:
-          mainRef.current.scrollIntoView(scrollAnim);
-      }
-      setCurrent(value);
-    },
-    []
-  );
+    switch (value) {
+      case 'bun':
+        bunRef.current.scrollIntoView(scrollAnim);
+        break;
+      case 'sauce':
+        sauceRef.current.scrollIntoView(scrollAnim);
+        break;
+      default:
+        mainRef.current.scrollIntoView(scrollAnim);
+    }
+    setCurrent(value);
+  };
 
   return(
     <section className={`${styles.section} mt-10`}>
@@ -102,11 +98,9 @@ function BurgerIngredients(props) {
         </div>
       </div>
       { isShowIngredient && 
-        <ModalOverlay closeAction={setIsShowIngredient}>
-          <Modal extraClasses="pb-15 pt-10">
-            <IngredientDetails data={ingredientData} closeAction={setIsShowIngredient} />
-          </Modal>
-        </ModalOverlay>
+        <Modal extraClasses="pb-15 pt-10" closeAction={setIsShowIngredient} title="Детали ингредиента">
+          <IngredientDetails data={ingredientData} />
+        </Modal>
       }
     </section>
   );

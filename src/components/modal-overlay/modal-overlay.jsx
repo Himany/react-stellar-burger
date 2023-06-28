@@ -6,20 +6,11 @@ import * as ReactDOM from 'react-dom';
 const modalRoot = document.getElementById("react-modals");
 
 function ModalOverlay(props) {
-  function handleEscapeClick(event) {
-    if (event.key === 'Escape') {
-      props.closeAction(false);
-    }
-  };
   function handleOverlayClick(event) {
     if (event.target === event.currentTarget) {
       props.closeAction(false);
     }
   };
-  React.useEffect(() => {
-    window.addEventListener('keyup', handleEscapeClick)
-    return () => window.removeEventListener('keyup', handleEscapeClick)
-  }, []);
   return ReactDOM.createPortal(
     (
       <div className={styles.overlay} onClick={handleOverlayClick}>

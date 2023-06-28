@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styles from "./burger-constructor.module.css";
 import { ingredientPropType } from "../../utils/prop-types.js";
 import { DragIcon, ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import ModalOverlay from "../modal-overlay/modal-overlay.jsx";
 import Modal from "../modal/modal.jsx";
 import OrderDetails from "../order-details/order-details.jsx";
 
@@ -17,8 +16,10 @@ function BurgerConstructor(props) {
               const type = (index > 0) ? ((index === (array.length - 1)) ? 'bottom' : undefined) : 'top';
               return(
                 <li className={styles.elementContainer} key={`container_${item._id}`} >
-                  <DragIcon type="primary" key={`dragIcon_${item._id}`} />
-                  <ConstructorElement type={type} isLocked={true} text={item.name} price={item.price} thumbnail={item.image} key={`element_${item._id}`} />
+                  { !((type === 'bottom') || (type === 'top')) &&
+                    <DragIcon type="primary" />
+                  }
+                  <ConstructorElement type={type} isLocked={((type === 'bottom') || (type === 'top'))} text={item.name} price={item.price} thumbnail={item.image} />
                 </li>
               )
             })
@@ -29,11 +30,9 @@ function BurgerConstructor(props) {
         <Button htmlType="button" type="primary" size="large" onClick={() => {setIsShowOrder(true)}}>Оформить заказ</Button>
       </div>
       { isShowOrder && 
-        <ModalOverlay closeAction={setIsShowOrder}>
-          <Modal extraClasses="pb-30 pt-30">
-            <OrderDetails closeAction={setIsShowOrder} />
-          </Modal>
-        </ModalOverlay>
+        <Modal extraClasses="pb-30 pt-10" closeAction={setIsShowOrder} title="" >
+          <OrderDetails  />
+        </Modal>
       }
     </section>
   );
