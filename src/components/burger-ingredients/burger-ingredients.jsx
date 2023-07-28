@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 import styles from "./burger-ingredients.module.css";
 import Ingredient from "../ingredient/ingredient";
@@ -6,15 +6,24 @@ import { ingredientPropType } from "../../utils/prop-types.js";
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from "../modal/modal.jsx";
 import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
+import { BurgerConstructorContext } from "../../services/appContext";
 
 function BurgerIngredients(props) {
   const [isShowIngredient, setIsShowIngredient] = React.useState(false);
   const [ingredientData, setIngredientData] = React.useState({});
   const [current, setCurrent] = React.useState('bun');
 
-  function ingredientView(data) {
-    setIngredientData(data);
+  const { state, setState } = React.useContext(BurgerConstructorContext);
+
+  function ingredientView(in_data) {
+    /*
+    setIngredientData(in_data);
     setIsShowIngredient(true);
+    */
+    setState({
+      type: 'addBurgerIng',
+      payload: in_data
+    });
   }
 
   const bunRef = React.useRef(null);
@@ -25,7 +34,7 @@ function BurgerIngredients(props) {
   const sauce = [];
   const main = [];
 
-  props.data.forEach((item) => {
+  state.data.forEach((item) => {
     switch (item.type) {
       case 'bun':
         bun.push(item);
@@ -106,8 +115,6 @@ function BurgerIngredients(props) {
   );
 }
 
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropType).isRequired
-};
+BurgerIngredients.propTypes = {};
 
 export default BurgerIngredients;
