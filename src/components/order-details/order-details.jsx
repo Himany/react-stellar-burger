@@ -1,24 +1,31 @@
 import React from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import styles from "./order-details.module.css";
 import imgDone from "../../images/graphics.svg";
-import { getOrderId } from "../../utils/api"
-import { BurgerConstructorContext } from "../../services/appContext";
+import { getOrder } from '../../services/actions/order'
 
 function OrderDetails(props) {
-  const { state, setState } = React.useContext(BurgerConstructorContext);
+  const { burgetIng, order } = useSelector(state => state);
+
+  const { items } = burgetIng;
+  const { data, orderRequest, orderFailed } = order;
+
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     const ingArrayId = [];
-    state.burgerData.forEach((item) => {ingArrayId.push(item._id)});
-    getOrderId({"ingredients": ingArrayId}, setState);
+    items.forEach((item) => {ingArrayId.push(item._id)});
+    dispatch(getOrder({ingredients: ingArrayId}))
   }, []);
+
+  if (Object.keys(data).length === 0) {return ''};
 
   return(
     <>
-      {((state.orderData.statusLoading) || (state.orderData.statusError)) ? (
-        <p className={`text text_type_main-medium ${styles.idOrder} mt-4`}>{(state.orderData.statusLoading) ? 'Загрузка...' : 'Ошибка загрузки'}</p>
+      {((orderRequest) || (orderFailed)) ? (
+        <p className={`text text_type_main-medium ${styles.idOrder} mt-4`}>{(orderRequest) ? 'Загрузка...' : 'Ошибка загрузки'}</p>
       ) : (
-        <p className={`text text_type_digits-large ${styles.idOrder} mt-4`}>{state.orderData.data.order.number}</p>
+        <p className={`text text_type_digits-large ${styles.idOrder} mt-4`}>{data.order.number}</p>
       )}
       <p className={`text text_type_main-medium ${styles.idOrderTitle} mt-8`}>Идентификатор заказа</p>
       <img src={imgDone} alt="Заказ уже готовят" className={`${styles.image} mt-15`}/>

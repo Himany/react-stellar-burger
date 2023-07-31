@@ -21,3 +21,8 @@
 .elementName {
   text-align: center;
 }
+
+.isDragging {
+  transition: 0.3s;
+  filter: grayscale(100%);
+}
