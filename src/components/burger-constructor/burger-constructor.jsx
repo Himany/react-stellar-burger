@@ -1,8 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from "./burger-constructor.module.css";
-import { ingredientPropType } from "../../utils/prop-types.js";
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from "../modal/modal.jsx";
 import OrderDetails from "../order-details/order-details.jsx";

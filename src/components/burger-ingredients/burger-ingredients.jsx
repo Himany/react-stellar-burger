@@ -1,9 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from "./burger-ingredients.module.css";
 import Ingredient from "../ingredient/ingredient";
-import { ingredientPropType } from "../../utils/prop-types.js";
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from "../modal/modal.jsx";
 import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
@@ -15,7 +13,7 @@ function BurgerIngredients(props) {
   const [isShowIngredient, setIsShowIngredient] = React.useState(false);
   const [current, setCurrent] = React.useState('bun');
 
-  const { items, itemsRequest, itemsFailed } = useSelector(state => state.ingredients);
+  const items = useSelector(state => state.ingredients.items);
   const burgerData = useSelector(state => state.burgetIng);
   const dispatch = useDispatch();
   

@@ -7,14 +7,16 @@ import { getOrder } from '../../services/actions/order'
 function OrderDetails(props) {
   const { burgetIng, order } = useSelector(state => state);
 
-  const { items } = burgetIng;
+  const { items, bun } = burgetIng;
   const { data, orderRequest, orderFailed } = order;
 
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     const ingArrayId = [];
+    if (Object.keys(bun).length != 0) {ingArrayId.push(bun.id)};
     items.forEach((item) => {ingArrayId.push(item._id)});
+    if (Object.keys(bun).length != 0) {ingArrayId.push(bun.id)};
     dispatch(getOrder({ingredients: ingArrayId}))
   }, []);
 
