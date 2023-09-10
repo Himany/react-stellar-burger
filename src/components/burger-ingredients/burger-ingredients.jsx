@@ -1,30 +1,17 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styles from "./burger-ingredients.module.css";
 import Ingredient from "../ingredient/ingredient";
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import Modal from "../modal/modal.jsx";
-import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
-import { getItems } from '../../services/actions/ingredients';
-import { SET_VIEW_ING_ITEM } from '../../services/actions/viewIngredient';
 import { useInView } from 'react-intersection-observer';
+import { Link, useLocation } from "react-router-dom";
 
 function BurgerIngredients(props) {
-  const [isShowIngredient, setIsShowIngredient] = React.useState(false);
   const [current, setCurrent] = React.useState('bun');
 
   const items = useSelector(state => state.ingredients.items);
   const burgerData = useSelector(state => state.burgetIng);
-  const dispatch = useDispatch();
-  
-  React.useEffect(()=> {
-      dispatch(getItems())
-  }, [])
-
-  function ingredientView(in_data) {
-    dispatch({ type: SET_VIEW_ING_ITEM, item: in_data });
-    setIsShowIngredient(true);
-  }
+  const location = useLocation();
 
   const bunRef = React.useRef(null);
   const sauceRef = React.useRef(null);
@@ -102,7 +89,14 @@ function BurgerIngredients(props) {
           {
             bun.map((item) => {
               return(
-                <Ingredient data={item} count={getCount(item)} key={item._id} view={ingredientView} />
+                <Link
+                  className={styles.link}
+                  key={item._id}
+                  to={`/ingredients/${item._id}`}
+                  state={{ background: location }}
+                >
+                  <Ingredient data={item} count={getCount(item)}/>
+                </Link>
               );
             })
           }
@@ -112,7 +106,14 @@ function BurgerIngredients(props) {
           {
             sauce.map((item) => {
               return(
-                <Ingredient data={item} count={getCount(item)} key={item._id} view={ingredientView} />
+                <Link
+                  className={styles.link}
+                  key={item._id}
+                  to={`/ingredients/${item._id}`}
+                  state={{ background: location }}
+                >
+                  <Ingredient data={item} count={getCount(item)}/>
+                </Link>
               );
             })
           }
@@ -122,16 +123,25 @@ function BurgerIngredients(props) {
           {
             main.map((item) => {
               return(
-                <Ingredient data={item} count={getCount(item)} key={item._id} view={ingredientView}/>
+                <Link
+                  className={styles.link}
+                  key={item._id}
+                  to={`/ingredients/${item._id}`}
+                  state={{ background: location }}
+                >
+                  <Ingredient data={item} count={getCount(item)}/>
+                </Link>
               );
             })
           }
         </div>
       </div>
-      { isShowIngredient && 
+      {
+      /*isShowIngredient && 
         <Modal extraClasses="pb-15 pt-10" closeAction={setIsShowIngredient} title="Детали ингредиента">
           <IngredientDetails />
         </Modal>
+      */
       }
     </section>
   );

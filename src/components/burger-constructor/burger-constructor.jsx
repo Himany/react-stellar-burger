@@ -7,12 +7,16 @@ import OrderDetails from "../order-details/order-details.jsx";
 import { useDrop } from 'react-dnd';
 import { ADD_BURGER_ITEM } from '../../services/actions/burgerIng';
 import BurgerIngredient from '../burger-ingredient/burger-ingredient.jsx';
+import { useNavigate } from "react-router-dom";
 
 function BurgerConstructor(props) {
   const [isShowOrder, setIsShowOrder] = React.useState(false);
+
   const { items, bun } = useSelector(state => state.burgetIng);
+  const { userData, errorData, requestType, request, failed, isAuth } = useSelector(state => state.user);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const getTotalPrice = (data) => {
     return(data.reduce(((result, item, index, array) => result + item.price), 0) + ((bun.price) ? bun.price * 2 : 0));
@@ -27,6 +31,14 @@ function BurgerConstructor(props) {
       isHover: monitor.isOver()
     })
   });
+
+  function showOrder() {
+    if (isAuth) {
+      setIsShowOrder(true);
+    } else {
+      navigate('/login');
+    }
+  }
 
   return(
     <section className={`${styles.section} mt-25`}>
@@ -59,7 +71,7 @@ function BurgerConstructor(props) {
       </ul>
       <div className={`${styles.orderContainer} mt-10`}>
         <p className={`text text_type_digits-medium mr-10`}>{getTotalPrice(items)} <CurrencyIcon type="primary" /></p>
-        <Button htmlType="button" type="primary" size="large" onClick={() => {setIsShowOrder(true)}}>Оформить заказ</Button>
+        <Button htmlType="button" type="primary" size="large" onClick={showOrder}>Оформить заказ</Button>
       </div>
       
       { isShowOrder && 

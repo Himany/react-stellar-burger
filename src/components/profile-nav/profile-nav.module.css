@@ -1,0 +1,22 @@
+.navContainer {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+}
+
+.navLink {
+  padding-top: 17px;
+  padding-bottom: 17px;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.link {
+  text-align: left;
+  cursor: pointer;
+  color: #8585AD;
+}
+
+.linkActive {
+  color: #F2F2F3;
+}

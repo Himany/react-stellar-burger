@@ -14,7 +14,6 @@ function BurgerIngredient({item, index, type}) {
     dispatch({ type: REMOVE_BURGER_ITEM, index: index })
   }
 
-
   const ref = useRef(null)
   const [{ handlerId }, drop] = useDrop({
     accept: 'burgerItem',

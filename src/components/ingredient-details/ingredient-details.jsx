@@ -1,20 +1,21 @@
-import React from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styles from "./ingredient-details.module.css";
-import { REMOVE_VIEW_ING_ITEM } from '../../services/actions/viewIngredient'
+import { useParams } from "react-router-dom";
+import PropTypes from 'prop-types';
 
-function IngredientDetails(props) {
-  const { item } = useSelector(state => state.viewIngredient);
-  const dispatch = useDispatch();
+function IngredientDetails({isPage}) {
+  const items = useSelector(state => state.ingredients.items);
+  const { id } = useParams();
   
-  React.useEffect(()=> {
-    return (() => {
-      dispatch({ type: REMOVE_VIEW_ING_ITEM });
-    });
-  }, [])
+  const item = items.find(({_id}) => (id === _id));
 
+  if (!item) {return(null)};
+  
   return(
     <>
+      {isPage &&
+        <p className={`text text_type_main-large ${styles.title}`}>Детали ингредиента</p>
+      }
       <img className={styles.img} src={item.image} alt={item.name} />
       <p className={`text text_type_main-medium ${styles.subTitle} mt-4`}>{item.name}</p>
       <div className={`${styles.dataContainer} mt-8`}>
@@ -39,6 +40,8 @@ function IngredientDetails(props) {
   );
 };
 
-IngredientDetails.propTypes = {};
+IngredientDetails.propTypes = {
+  isPage: PropTypes.bool.isRequired
+};
 
 export default IngredientDetails;

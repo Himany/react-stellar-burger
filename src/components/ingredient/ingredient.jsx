@@ -16,7 +16,7 @@ function Ingredient(props) {
   });
 
   return(
-    <div className={`${styles.elementContainer} mt-6`} onClick={() => {props.view(data)}} ref={ref}>
+    <div className={`${styles.elementContainer} mt-6`} ref={ref}>
       <img className={`${styles.img} ${isDragging ? styles.isDragging : ''}`} src={data.image} alt={data.name} />
       <div className={`${styles.priceContainer} mt-1`}>
         <p className="text text_type_digits-default">{data.price}</p><CurrencyIcon type="primary" />
@@ -31,8 +31,7 @@ function Ingredient(props) {
 
 Ingredient.propTypes = {
   data:ingredientPropType.isRequired,
-  count:PropTypes.number.isRequired,
-  view:PropTypes.func.isRequired
+  count:PropTypes.number.isRequired
 };
 
 export default Ingredient;

@@ -7,10 +7,10 @@ function AppHeader() {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <ul className={styles.ul}>
-          <li className='pt-4 pb-4 pl-5 pr-5'><Link icon={<BurgerIcon type="secondary" />} text="Конструктор" href="#" /></li>
-          <li className='pt-4 pb-4 pl-5 pr-5'><Link icon={<ListIcon type="secondary" />} text="Лента заказов" href="#" /></li>
+          <li className='pt-4 pb-4 pl-5 pr-5'><Link icon={BurgerIcon} text="Конструктор" to="/" /></li>
+          <li className='pt-4 pb-4 pl-5 pr-5'><Link icon={ListIcon} text="Лента заказов" to="/feed" /></li>
           <li className={`${styles.li} ${styles.logo}`}><Logo /></li>
-          <li className='pt-4 pb-4 pl-5 pr-5'><Link icon={<ProfileIcon type="secondary" />} text="Личный кабинет" href="#" /></li>
+          <li className='pt-4 pb-4 pl-5 pr-5'><Link icon={ProfileIcon} text="Личный кабинет" to="/profile" /></li>
         </ul>
       </nav>
     </header>

@@ -1,18 +1,23 @@
 import PropTypes from 'prop-types';
 import styles from "./link.module.css";
+import { NavLink } from "react-router-dom";
 
 function Link(props) {
   return(
-    <a className={`${styles.link} ${styles.li}`} href={props.href}>
-      {props.icon}
-      <span className="text text_type_main-default">{props.text}</span>
-    </a>
+    <NavLink to={props.to} className={`${styles.link} ${styles.li}`}>
+      {({ isActive }) => (
+        <>
+          <props.icon type={isActive ? "primary" : "secondary"} />
+          <span className={`text text_type_main-default ${isActive ? styles.linkActive : ''}`}>{props.text}</span>
+        </>
+      )}
+    </NavLink>
   );
 }
 
 Link.propTypes = {
-  href: PropTypes.string.isRequired,
-  icon: PropTypes.element.isRequired,
+  to: PropTypes.string.isRequired,
+  icon: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired
 };
 
