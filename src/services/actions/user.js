@@ -1,4 +1,4 @@
-import { authApi, logoutApi, registerApi, getUserApi, fetchProfile, updateUserDataApi } from '../../utils/api.js';
+import { authApi, logoutApi, registerApi, getUserApi, fetchProfile, updateUserDataApi, checkResponse } from '../../utils/api.js';
 
 export const AUTH_REQUEST = 'AUTH_REQUEST';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
@@ -24,7 +24,7 @@ export function auth(data) {
       type: AUTH_REQUEST
     });
     authApi(data)
-      .then(res => res.ok ? res.json() : res.json().then((error) => Promise.reject(error)))
+      .then(checkResponse)
       .then(res => {
         if (res && res.success) {
           dispatch({
@@ -54,7 +54,7 @@ export function register(data) {
       type: REGISTER_REQUEST
     });
     registerApi(data)
-      .then(res => res.ok ? res.json() : res.json().then((error) => Promise.reject(error)))
+      .then(checkResponse)
       .then(res => {
         if (res && res.success) {
           dispatch({
@@ -84,7 +84,7 @@ export function logout(data) {
       type: AUTH_LOGOUT_REQUEST
     });
     logoutApi(data)
-      .then(res => res.ok ? res.json() : res.json().then((error) => Promise.reject(error)))
+      .then(checkResponse)
       .then(res => {
         if (res && res.success) {
           dispatch({
@@ -113,7 +113,7 @@ export function getUser() {
       type: USER_REQUEST
     });
     fetchProfile(getUserApi)
-      .then(res => res.ok ? res.json() : res.json().then((error) => Promise.reject(error)))
+      .then(checkResponse)
       .then(res => {
         if (res && res.success) {
           dispatch({
@@ -143,7 +143,7 @@ export function updateUserData(data) {
       type: USER_REQUEST
     });
     fetchProfile(updateUserDataApi,data)
-      .then(res => res.ok ? res.json() : res.json().then((error) => Promise.reject(error)))
+      .then(checkResponse)
       .then(res => {
         if (res && res.success) {
           dispatch({

@@ -1,4 +1,5 @@
-import { getOrdeApi } from '../../utils/api.js';
+import { getOrdeApi, checkResponse } from '../../utils/api';
+import { REMOVE_ALL_BURGER_ITEM } from './burgerIng';
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
@@ -10,13 +11,14 @@ export function getOrder(data) {
       type: GET_ORDER_REQUEST
     });
     getOrdeApi(data)
-      .then(res => res.ok ? res.json() : res.json().then((error) => Promise.reject(error)))
+      .then(checkResponse)
       .then(res => {
         if (res && res.success) {
           dispatch({
             type: GET_ORDER_SUCCESS,
             order: res
           });
+          dispatch({type: REMOVE_ALL_BURGER_ITEM});
         } else {
           dispatch({
             type: GET_ORDER_FAILED

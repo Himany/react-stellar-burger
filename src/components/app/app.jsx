@@ -2,7 +2,7 @@ import styles from "./app.module.css";
 
 import React from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import AppHeader from "../app-header/app-header";
 import Main from "../../pages/main/main";
@@ -19,8 +19,11 @@ import NotFound from "../../pages/not-found/not-found";
 import Feed from "../../pages/feed/feed";
 
 import { getItems } from '../../services/actions/ingredients';
+import { getUser } from "../../services/actions/user";
 
 function App() {
+  const { isAuth } = useSelector(state => state.user);
+
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,75 +32,23 @@ function App() {
 
   React.useEffect(()=> {
     dispatch(getItems())
-  }, [dispatch])
+    if (!isAuth) {dispatch(getUser())}
+  }, [])
 
   return (
     <div className={styles.app}>
+      <AppHeader />
       <Routes location={background || location}>
-        <Route path="/" element={
-          <>
-              <AppHeader />
-              <Main/>
-          </>
-        } />
-        <Route path="/login" element={
-          <>
-              <AppHeader />
-              <Login/>
-          </>
-        } />
-        <Route path="/register" element={
-          <>
-              <AppHeader />
-              <Register/>
-          </>
-        } />
-        <Route path="/forgot-password" element={
-          <>
-              <AppHeader />
-              <ForgotPassword />
-          </>
-        } />
-        <Route path="/reset-password" element={
-          <>
-              <AppHeader />
-              <ResetPassword />
-          </>
-        } />
-        <Route path="/feed" element={
-          <>
-            <AppHeader />
-            <Feed />
-          </>
-        } />
-        <Route path="/profile" element={
-          <ProtectedRouteElement element={
-            <>
-              <AppHeader />
-              <Profile />
-            </>
-          }/>
-        } />
-        <Route path="/profile/orders" element={
-          <ProtectedRouteElement element={
-            <>
-              <AppHeader />
-              <Orders />
-            </>
-          }/>
-        } />
-        <Route path="ingredients/:id" element={
-          <>
-            <AppHeader />
-            <IngredientDetails isPage={true}/>
-          </>
-        } />
-        <Route path="*" element={
-          <>
-            <AppHeader />
-            <NotFound />
-          </>
-        } />
+        <Route path="/" element={<Main/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/register" element={<ProtectedRouteElement element={<Register/>} anonymous={true}/>} />
+        <Route path="/forgot-password" element={<ProtectedRouteElement element={<ForgotPassword />} anonymous={true}/>} />
+        <Route path="/reset-password" element={<ProtectedRouteElement element={<ResetPassword />} anonymous={true}/>} />
+        <Route path="/feed" element={<Feed />} />
+        <Route path="/profile" element={<ProtectedRouteElement element={<Profile />}/>} />
+        <Route path="/profile/orders" element={<ProtectedRouteElement element={<Orders />}/>} />
+        <Route path="ingredients/:id" element={<IngredientDetails isPage={true}/>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       {background && (
         <Routes>

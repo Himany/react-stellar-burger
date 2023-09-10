@@ -7,13 +7,14 @@ import FullScreenContainer from "../full-screen-container/full-screen-container"
 import Preloader from "../preloader/preloader";
 
 
-function ProtectedRouteElement({ element }) {
-  const accessToken = getCookie('accessToken');
+function ProtectedRouteElement({ element, anonymous = false }) {
+  const refreshToken = getCookie('refreshToken');
 
   const { userData, errorData, requestType, request, failed, isAuth } = useSelector(state => state.user);
-  const [isUserLoaded, setUserLoaded] = React.useState(isAuth ? true : (accessToken ? false : true));
+  const [isUserLoaded, setUserLoaded] = React.useState(isAuth ? true : (refreshToken ? false : true));
   const dispatch = useDispatch();
   const location = useLocation()
+  const from = location.state?.from || '/';
 
   React.useEffect(() => {
     if (!isAuth) {
@@ -33,7 +34,14 @@ function ProtectedRouteElement({ element }) {
     return (<FullScreenContainer><Preloader /></FullScreenContainer>);
   }
 
-  return isAuth ? element : <Navigate to="/login" state={{ from: location.pathname }}/>;
+  // Если разрешен неавторизованный доступ, а пользователь авторизован, то отправляем его на предыдущую страницу
+  if (anonymous && isAuth) {return <Navigate to={ from } />}
+
+  // Если требуется авторизация, а пользователь не авторизован, то отправляем его на страницу логин
+  if (!anonymous && !isAuth) {return <Navigate to="/login" state={{ from: location}}/>}
+
+  // Если все ок, то рендерим внутреннее содержимое
+  return element;
 }
 
 export default ProtectedRouteElement;

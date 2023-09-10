@@ -9,7 +9,6 @@ import { forgotPassword, RESET_FORGOT_PAS_DATA } from '../../services/actions/re
 
 function ForgotPassword() {
   const { forgotPasData, resetPasData, errorData, forgotPasRequest, forgotPasFailed, resetPasRequest, resetPasFailed } = useSelector(state => state.resetPassword);
-  const { isAuth } = useSelector(state => state.user);
   const [form, setValue] = React.useState({ email: '' });
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,7 +28,6 @@ function ForgotPassword() {
     dispatch(forgotPassword(form));
   };
 
-  if (isAuth) {return (<Navigate to="/" replace/>)};
   if (Object.keys(forgotPasData).length > 0) {navigate('/reset-password', {replace: false})}
 
   return(

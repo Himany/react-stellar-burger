@@ -1,4 +1,4 @@
-import { forgotPasswordApi, resetPasswordApi } from '../../utils/api.js';
+import { forgotPasswordApi, resetPasswordApi, checkResponse } from '../../utils/api.js';
 
 export const FORGOT_PAS_REQUEST = 'FORGOT_PAS_REQUEST';
 export const FORGOT_PAS_SUCCESS = 'FORGOT_PAS_SUCCESS';
@@ -18,7 +18,7 @@ export function forgotPassword(data) {
       type: FORGOT_PAS_REQUEST
     });
     forgotPasswordApi(data)
-      .then(res => res.ok ? res.json() : res.json().then((error) => Promise.reject(error)))
+      .then(checkResponse)
       .then(res => {
         if (res && res.success) {
           dispatch({
@@ -49,7 +49,7 @@ export function resetPassword(data) {
       type: RESET_PAS_REQUEST
     });
     resetPasswordApi(data)
-      .then(res => res.ok ? res.json() : res.json().then((error) => Promise.reject(error)))
+      .then(checkResponse)
       .then(res => {
         if (res && res.success) {
           dispatch({

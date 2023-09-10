@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styles from "./order-details.module.css";
 import imgDone from "../../images/graphics.svg";
 import { getOrder } from '../../services/actions/order'
+import Preloader from "../preloader/preloader";
 
 function OrderDetails(props) {
   const { burgetIng, order } = useSelector(state => state);
@@ -17,10 +18,23 @@ function OrderDetails(props) {
     if (Object.keys(bun).length != 0) {ingArrayId.push(bun.id)};
     items.forEach((item) => {ingArrayId.push(item._id)});
     if (Object.keys(bun).length != 0) {ingArrayId.push(bun.id)};
-    dispatch(getOrder({ingredients: ingArrayId}))
+    if (ingArrayId.length !== 0) {dispatch(getOrder({ingredients: ingArrayId}));}
   }, []);
 
-  if (Object.keys(data).length === 0) {return ''};
+  if (
+      (Object.keys(burgetIng.bun).length === 0) && 
+      (burgetIng.items.length === 0) && 
+      (Object.keys(data).length === 0) && 
+      !((orderRequest) || (orderFailed))
+    ) {
+    return(
+      <>
+        <p className={`text text_type_main-medium ${styles.idOrder} mt-4`}>Ошибка</p>
+        <p className={`text text_type_main-medium ${styles.idOrder} mt-4`}>Вы не выбрали ингредиенты для бургера</p>
+      </>
+    )
+  }
+  if (Object.keys(data).length === 0) {return(<Preloader />)};
 
   return(
     <>

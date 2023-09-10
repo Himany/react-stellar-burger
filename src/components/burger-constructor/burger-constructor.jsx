@@ -8,6 +8,7 @@ import { useDrop } from 'react-dnd';
 import { ADD_BURGER_ITEM } from '../../services/actions/burgerIng';
 import BurgerIngredient from '../burger-ingredient/burger-ingredient.jsx';
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 
 function BurgerConstructor(props) {
   const [isShowOrder, setIsShowOrder] = React.useState(false);
@@ -25,7 +26,7 @@ function BurgerConstructor(props) {
   const [{ isHover }, dropTarget] = useDrop({
     accept: 'items',
     drop(data) {
-      dispatch({ type: ADD_BURGER_ITEM, item: data })
+      dispatch({ type: ADD_BURGER_ITEM, item: data, elementId: uuidv4() })
     },
     collect: monitor => ({
       isHover: monitor.isOver()

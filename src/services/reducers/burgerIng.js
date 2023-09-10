@@ -1,5 +1,4 @@
-import { ADD_BURGER_ITEM, REMOVE_BURGER_ITEM, CHANGE_BURGER_ING_INDEX } from "../actions/burgerIng";
-import { v4 as uuidv4 } from 'uuid';
+import { ADD_BURGER_ITEM, REMOVE_BURGER_ITEM, CHANGE_BURGER_ING_INDEX, REMOVE_ALL_BURGER_ITEM } from "../actions/burgerIng";
 
 const initialState = {
   items: [],
@@ -9,10 +8,10 @@ const initialState = {
 export const burgetIngReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_BURGER_ITEM: {
-      const item = {
+      const item = { 
         ...action.item,
-        elementId: uuidv4()
-      }
+        elementId: action.elementId
+       }
       if (action.item.type === 'bun') {
         return { ...state, bun: item };
       } else {
@@ -34,6 +33,9 @@ export const burgetIngReducer = (state = initialState, action) => {
       newItems.splice(oldIndex, 1);
       newItems.splice(newIndex, 0, item);
       return { ...state, items: newItems };
+    }
+    case REMOVE_ALL_BURGER_ITEM: {
+      return { ...initialState };
     }
     default: {
       return state;

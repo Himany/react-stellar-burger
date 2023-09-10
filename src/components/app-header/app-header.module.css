@@ -29,3 +29,10 @@
 .logo {
   margin: 0 288px 0 112px;
 }
+
+.link {
+  margin: 0;
+  padding: 0;
+  color: #8585AD;
+  text-decoration: none;
+}

@@ -164,3 +164,5 @@ export const resetPasswordApi = (data) => {
     }
   ));
 };
+
+export const checkResponse = (res) => (res.ok ? res.json() : res.json().then((error) => Promise.reject(error)));

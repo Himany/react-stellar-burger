@@ -13,8 +13,6 @@ function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  if (isAuth) {navigate('/')};
-
   function goToLogin() {
     navigate('/login');
   };

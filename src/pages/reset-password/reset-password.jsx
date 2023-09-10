@@ -9,7 +9,6 @@ import { resetPassword, RESET_RESET_PAS_DATA } from '../../services/actions/rese
 
 function ResetPassword() {
   const { forgotPasData, resetPasData, errorData, forgotPasRequest, forgotPasFailed, resetPasRequest, resetPasFailed } = useSelector(state => state.resetPassword);
-  const { isAuth } = useSelector(state => state.user);
   const [form, setValue] = React.useState({ password: '', token: '' });
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,9 +27,8 @@ function ResetPassword() {
     dispatch(resetPassword(form));
   };
 
-  if (isAuth) {return (<Navigate to="/" replace/>)};
-  if (Object.keys(forgotPasData).length <= 0) {navigate('/login', {replace: true})}
-  if (Object.keys(resetPasData).length > 0) {navigate('/login', {replace: false})}
+  if (Object.keys(forgotPasData).length <= 0) {return (<Navigate to="/" replace={true}/>)}
+  if (Object.keys(resetPasData).length > 0) {return (<Navigate to="/" replace={false}/>)}
 
   return(
     <main className={`${styles.marginTop} ${styles.container}`}>
