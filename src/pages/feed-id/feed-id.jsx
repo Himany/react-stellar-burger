@@ -34,9 +34,9 @@ function FeedId(props) {
   let orderPrice = 0;
   const preIngridients = [];
   order.ingredients.forEach((item) => {
-    const count = order.ingredients.reduce((count, element) => (count += 1), 0);
+    const count = order.ingredients.reduce((count, element) => (element === item ? count += 1 : 1), 0);
     const ingObject = preIngridients.find((ing) => (ing.id === item));
-    if (!ingObject) {
+    if (!ingObject && item) {
       preIngridients.push({id: item, count: count});
     }
   });

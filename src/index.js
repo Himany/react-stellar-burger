@@ -54,7 +54,7 @@ const composeEnhancers =
 const enhancer = composeEnhancers(applyMiddleware(
     thunk, 
     socketMiddleware(`${wsUrl}/all`,feedWsActions), 
-    socketMiddleware(`${wsUrl}?token=${getCookie('accessToken')}`,uOrderWsActions)
+    socketMiddleware(wsUrl,uOrderWsActions)
 ));
 const store = createStore(
   rootReducer, 

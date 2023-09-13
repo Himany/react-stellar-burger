@@ -10,14 +10,14 @@ function OrderDetails(props) {
 
   const { items, bun } = burgetIng;
   const { data, orderRequest, orderFailed } = order;
-
+  
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     const ingArrayId = [];
-    if (Object.keys(bun).length != 0) {ingArrayId.push(bun.id)};
+    if (Object.keys(bun).length != 0) {ingArrayId.push(bun._id)};
     items.forEach((item) => {ingArrayId.push(item._id)});
-    if (Object.keys(bun).length != 0) {ingArrayId.push(bun.id)};
+    if (Object.keys(bun).length != 0) {ingArrayId.push(bun._id)};
     if (ingArrayId.length !== 0) {dispatch(getOrder({ingredients: ingArrayId}));}
   }, []);
 

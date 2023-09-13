@@ -20,7 +20,7 @@ function OrderItem(props) {
   let orderPrice = 0;
   const ingridients = order.ingredients.map((item) => {
     const ingObject = items.find((ing) => (item === ing._id));
-    orderPrice += ingObject.price;
+    if (ingObject) {orderPrice += ingObject.price;}
     return(ingObject);
   });
 
@@ -40,6 +40,7 @@ function OrderItem(props) {
         <ul className={styles.imagesContainer}>
           {
             ingridients.slice(0,6).reverse().map((item, index, array) => {
+              if (!item) {return(null)};
               return(
                 <li className={styles.imageContainer} key={index}>
                   <img className={styles.image} src={item.image}/>
@@ -49,7 +50,7 @@ function OrderItem(props) {
                     </div>
                   }
                 </li>
-              )
+              );
             })
           }
         </ul>

@@ -1,4 +1,4 @@
-import { getOrdeApi, checkResponse } from '../../utils/api';
+import { fetchProfile, getOrdeApi, checkResponse } from '../../utils/api';
 import { REMOVE_ALL_BURGER_ITEM } from './burgerIng';
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
@@ -10,7 +10,7 @@ export function getOrder(data) {
     dispatch({
       type: GET_ORDER_REQUEST
     });
-    getOrdeApi(data)
+    fetchProfile(getOrdeApi,data)
       .then(checkResponse)
       .then(res => {
         if (res && res.success) {

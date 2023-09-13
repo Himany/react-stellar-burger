@@ -15,7 +15,7 @@ function Feed() {
   const feed = useSelector(state => state.feed);
 
   React.useEffect(()=> {
-    dispatch({type: FEED_WS_CONNECTION_START});
+    dispatch({type: FEED_WS_CONNECTION_START, payload: ""});
     return () => {
       dispatch({type: FEED_WS_CONNECTION_CLOSED});
     };

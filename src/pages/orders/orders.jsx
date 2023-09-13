@@ -4,6 +4,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useLocation } from "react-router-dom";
 
+import { getCookie } from "../../utils/cookie";
 import Preloader from "../../components/preloader/preloader";
 import OrderItem from "../../components/order-item/order-item";
 import ProfileNav from '../../components/profile-nav/profile-nav';
@@ -16,7 +17,7 @@ function Orders() {
   const uOrders = useSelector(state => state.uOrders);
 
   React.useEffect(()=> {
-    dispatch({type: UORDER_WS_CONNECTION_START});
+    dispatch({type: UORDER_WS_CONNECTION_START, payload: `?token=${getCookie('accessToken')}`});
     return () => {
       dispatch({type: UORDER_WS_CONNECTION_CLOSED});
     };

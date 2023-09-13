@@ -7,12 +7,15 @@ export const getIngredientsApi = () => {
 };
 
 export const getOrdeApi = (data) => {
+  const accessToken = getCookie('accessToken');
+
   return(fetch(
     `${url}api/orders`,
     {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${accessToken}`
       },
       body: JSON.stringify(data)
     }
@@ -113,7 +116,7 @@ export const fetchProfile = (query, data = null) => {
       .then(res => {
         if (res.message === 'jwt malformed') {
           return(updateTokenApi({token: refreshToken})
-          .then(res => res.ok ? res.json() : res.json().then((error) => Promise.reject(error)))
+          .then(checkResponse)
           .then(res => {
             if (res && res.success) {
               const authToken = res.accessToken.split('Bearer ')[1];
