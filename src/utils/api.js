@@ -166,3 +166,15 @@ export const resetPasswordApi = (data) => {
 };
 
 export const checkResponse = (res) => (res.ok ? res.json() : res.json().then((error) => Promise.reject(error)));
+
+export const getOderDataApi = (number) => {
+  return(fetch(
+    `${url}api/orders/${number}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  ));
+};

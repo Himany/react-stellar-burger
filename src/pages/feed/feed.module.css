@@ -1,3 +1,64 @@
-.container {
+.main {
+  width: 1240px;
+  padding-top: 40px;
+}
 
+.centerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: flex-start;
+  margin-top: 20px;
+  gap: 60px;
+}
+
+.ordersContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 600px;
+  height: 800px;
+  overflow-y: scroll;
+  padding-right: 8px;
+}
+
+.statisticsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.ordersNumberContainer {
+  display: flex;
+  gap: 36px;
+}
+
+.ordersReadyContainer {
+  display: grid;
+  width: 272px;
+  grid-template-rows: repeat(5, 24px);
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 8px;
+  color: #00CCCC;
+}
+
+.ordersOnWorkContainer {
+  display: grid;
+  width: 272px;
+  grid-template-rows: repeat(5, 24px);
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 8px;
+}
+
+.textShadow{
+  text-shadow: 0px 4px 32px #3333FF80, 0px 0px 8px #3333FF40, 0px 0px 16px #3333FF40;
+}
+
+.link {
+  text-decoration: none;
+  color: #F2F2F3;
 }

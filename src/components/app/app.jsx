@@ -17,6 +17,7 @@ import Modal from "../modal/modal.jsx";
 import Orders from "../../pages/orders/orders";
 import NotFound from "../../pages/not-found/not-found";
 import Feed from "../../pages/feed/feed";
+import FeedId from "../../pages/feed-id/feed-id";
 
 import { getItems } from '../../services/actions/ingredients';
 import { getUser } from "../../services/actions/user";
@@ -47,15 +48,29 @@ function App() {
         <Route path="/feed" element={<Feed />} />
         <Route path="/profile" element={<ProtectedRouteElement element={<Profile />}/>} />
         <Route path="/profile/orders" element={<ProtectedRouteElement element={<Orders />}/>} />
-        <Route path="ingredients/:id" element={<IngredientDetails isPage={true}/>} />
+        <Route path="/ingredients/:id" element={<IngredientDetails isPage={true}/>} />
+        <Route path="/feed/:id" element={<FeedId isPage={true} />} />
+        <Route path="/profile/orders/:id" element={<ProtectedRouteElement element={<FeedId isPage={true} />}/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {background && (
         <Routes>
-          <Route path="ingredients/:id" element={
+          <Route path="/ingredients/:id" element={
             <Modal extraClasses="pb-15 pt-10" closeAction={() => {navigate('/')}} title="Детали ингредиента">
               <IngredientDetails isPage={false}/>
             </Modal>
+          } />
+          <Route path="/feed/:id" element={
+            <Modal extraClasses="pb-15 pt-10" closeAction={() => {navigate('/feed')}} title="">
+              <FeedId isPage={false} />
+            </Modal>
+          } />
+          <Route path="/profile/orders/:id" element={
+            <ProtectedRouteElement element={
+              <Modal extraClasses="pb-15 pt-10" closeAction={() => {navigate('/profile/orders')}} title="">
+                <FeedId isPage={false} />
+              </Modal>
+            }/>
           } />
         </Routes>
       )}
