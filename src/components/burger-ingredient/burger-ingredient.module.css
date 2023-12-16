@@ -1,0 +1,16 @@
+.elementContainer {
+  display: flex;
+  gap: 13.5px;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  left: 0px;
+  transition: transform 0.5s;
+}
+
+.top {
+  transform: translateY(-20px);
+}
+.bottom {
+  transform: translateY(20px);
+}

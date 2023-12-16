@@ -1,0 +1,69 @@
+.main {
+  width: 640px;
+}
+
+.orderNumber {
+  text-align: center;
+}
+
+.orderStatus {
+  font-size: 16px;
+  color: #00CCCC;
+}
+
+.ingsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 240px;
+  overflow-y: scroll;
+}
+
+.bottomContainer {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.priceContainer {
+  display: flex;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+/***********************************************/
+.ingContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 608px;
+}
+
+.imageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 64px;
+  height: 64px;
+
+  border-radius: 100px;
+  border: 2px solid #801AB2;
+  box-sizing: border-box;
+
+  background-color: #131316;
+}
+
+.image {
+  width: 58px;
+  height: 58px;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.ingName {
+  font-size: 16px;
+  width: 100%;
+}
+/***********************************************/

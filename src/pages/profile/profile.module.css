@@ -1,0 +1,47 @@
+.container {
+  width: 1240px;
+  margin-top: 120px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.profileDescription {
+  opacity: 0.6;
+}
+
+.buttonContainer {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 40px;
+  justify-content: center;
+}
+
+.containerText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.subtitle {
+  margin: 0;
+  padding: 0;
+}
+
+.mainText {
+  margin: 0;
+  padding: 0;
+
+  margin-top: 40px;
+}
+
+.link {
+  text-decoration: none;
+  color: #4C4CFF;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+
+.link:hover {
+  opacity: 0.6;
+}

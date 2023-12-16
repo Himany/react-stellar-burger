@@ -1,0 +1,25 @@
+.section {
+  max-width: 600px;
+}
+
+.tab {
+  display: flex;
+}
+
+.ingredientContainer {
+  height: 650px;
+  overflow-y: scroll;
+}
+
+.elementsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px 24px;
+}
+
+.link {
+  color: inherit;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}

@@ -1,0 +1,28 @@
+.elementContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 272px;
+  position: relative;
+  cursor: pointer;
+}
+
+.img {
+  width: 240px;
+  height: 120px;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.elementName {
+  text-align: center;
+}
+
+.isDragging {
+  transition: 0.3s;
+  filter: grayscale(100%);
+}

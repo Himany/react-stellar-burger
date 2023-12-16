@@ -1,0 +1,33 @@
+.section {
+  width: 600px;
+}
+
+.elementsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 600px;
+  overflow-y: scroll;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  transition: scale 0.2s;
+  position: relative;
+}
+
+.onHover {
+  scale: 1.05;
+}
+
+.orderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.elementContainer {
+  display: flex;
+  gap: 13.5px;
+  align-items: center;
+  justify-content: flex-end;
+}
